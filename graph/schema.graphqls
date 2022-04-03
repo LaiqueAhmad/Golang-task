@@ -1,0 +1,23 @@
+type Project {
+  node: Node!
+}
+
+type Node {
+  name: String,
+  description: String,
+  forksCount: Int
+}
+
+input NewNode {
+  name: String,
+  description: String,
+  forksCount: Int
+}
+
+type Query {
+  projects: Project!
+}
+
+type Mutation {
+  createProject(input: NewNode): Project!
+}

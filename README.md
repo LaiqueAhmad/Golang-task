@@ -5,7 +5,8 @@ Setup instructions:
         https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.6/Postgres-2.5.6-10-11-12-13-14.dmg
 
 2) Command to run migrations:
-
+    - check this link to download the golang-migrate tool
+        https://github.com/golang-migrate/migrate/tree/master/cmd/migrate
     - you should be in the root directory of the project, which is /bd_test_task_three
     - replace <database_name> with your DB name, remove angle brackets too. I set it to 'postgres' by default
     migrate -source file://internal/pkg/db/migrations/mysql -database "postgres://postgres:postgres@localhost:5432/<database_name>?sslmode=disable" up

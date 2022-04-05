@@ -1,29 +1,19 @@
 package main
 
 import (
-	"bd_test_task_three/graph"
-	"bd_test_task_three/graph/generated"
-	"log"
-	"net/http"
-	"os"
-
-	"github.com/99designs/gqlgen/graphql/handler"
-	"github.com/99designs/gqlgen/graphql/playground"
+	"fmt"
+	"bd_test_task_three/service"
+	"bd_test_task_three/repository"
 )
 
-const defaultPort = "8080"
-
+// main file which calls the repo layer and service layer
+// prints all the names and sum of all forks
 func main() {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = defaultPort
-	}
 
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
-
-	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	http.Handle("/query", srv)
-
-	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	dataset := repository.RepoLayer()
+	formattedDataSet := service.JoinNames(dataset)
+	fmt.Println("**************")
+	fmt.Println("All names joined with comma separated delimeter: ", formattedDataSet.Name)
+	fmt.Println("Sum of all forkCounts                          : ", formattedDataSet.ForksCount)
+	fmt.Println("**************")
 }
